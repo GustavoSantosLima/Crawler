@@ -1,18 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 var request = require('request');
 var cheerio = require('cheerio');
 var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var page = 2;
-    var last_page = 2;
+    var page = 1;
+    var last_page = 38;
 
     (function loop() {
         if (page <= last_page) {
-            request.get('http://globoesporte.globo.com/servico/esportes_campeonato/responsivo/widget-uuid/1fa965ca-e21b-4bca-ac5c-bbc97' +
-                '41f2c3d/fases/fase-unica-seriea-2017/rodada/'+page+'/jogos.html', function (err, response, body) {
+            request.get('http://globoesporte.globo.com/servico/esportes_campeonato/responsivo/widget-uuid/1fa965ca-e21b-4bca-ac5c-bbc9741f2c3d/fases/fase-unica-seriea-2017/rodada/'+page+'/jogos.html',
+                function (err, response, body) {
                 if(!err && response.statusCode == 200){
                     var $ = cheerio.load(body);
                     var items = $('.lista-de-jogos-item');
@@ -20,12 +21,13 @@ router.get('/', function(req, res, next) {
                     $(items).each(function (index, element) {
                         var info = $(element).find('.placar-jogo-informacoes').text();
                         var estadio = $(element).find('.placar-jogo-informacoes-local').text();
-                        info = info.split(estadio);
-                        var data = info[0].trim().split(' ');
-                        data = data[1].split('/').reverse().join("-");
+                        info = info.split(' ');
+                        var len = info.length;
+                        var datajogo = info[1].split('/').reverse().join("-");
 
                         var mandante = {};
                         var visitante = {};
+                        var created_at = moment().format("YYYY-MM-DD HH:mm:ss");
 
                         mandante.sigla = $(element).find('.placar-jogo-equipes-mandante > .placar-jogo-equipes-sigla').text();
                         mandante.nome = $(element).find('.placar-jogo-equipes-mandante > .placar-jogo-equipes-nome').text();
@@ -33,6 +35,14 @@ router.get('/', function(req, res, next) {
                         visitante.sigla = $(element).find('.placar-jogo-equipes-visitante > .placar-jogo-equipes-sigla').text();
                         visitante.nome = $(element).find('.placar-jogo-equipes-visitante > .placar-jogo-equipes-nome').text();
                         visitante.placar = $(element).find('.placar-jogo-equipes-placar-visitante').text();
+
+                        if(mandante.placar.length == 0){
+                            mandante.placar = null;
+                        }
+
+                        if(visitante.placar.length == 0){
+                            visitante.placar = null;
+                        }
 
                         switch (mandante.nome) {
                             case 'Flamengo':
@@ -161,7 +171,7 @@ router.get('/', function(req, res, next) {
                         }
 
                         fs.appendFile('query.txt',
-                            "(1, "+page+", '"+data+' '+info[1].trim()+":00', "+mandante.nome+", "+mandante.placar+", "+visitante.placar+", "+visitante.nome+"), \n"
+                            "(1, "+page+", '"+datajogo+"', "+mandante.nome+", "+mandante.placar+", "+visitante.placar+", "+visitante.nome+", '"+created_at+"', '"+created_at+"'), \n"
                         );
                     });
                 }
