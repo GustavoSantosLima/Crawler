@@ -23,7 +23,11 @@ router.get('/', function(req, res, next) {
                         var estadio = $(element).find('.placar-jogo-informacoes-local').text();
                         info = info.split(' ');
                         var len = info.length;
-                        var datajogo = info[1].split('/').reverse().join("-");
+                        if(/^([0-9][0-9]:[0-9][0-9])$/.test(info[len-1])){
+                            var datajogo = info[1].split('/').reverse().join("-") + ' ' + info[len-1];
+                        } else {
+                            var datajogo = info[1].split('/').reverse().join("-");
+                        }
 
                         var mandante = {};
                         var visitante = {};
@@ -46,132 +50,132 @@ router.get('/', function(req, res, next) {
 
                         switch (mandante.nome) {
                             case 'Flamengo':
-                                mandante.nome = 1;
+                                mandante.nome = 102;
                                 break;
                             case 'Atlético-PR':
-                                mandante.nome = 2;
+                                mandante.nome = 22;
                                 break;
                             case 'Atlético-MG':
-                                mandante.nome = 3;
-                                break;
-                            case 'Botafogo':
-                                mandante.nome = 4;
-                                break;
-                            case 'Corinthians':
-                                mandante.nome = 5;
-                                break;
-                            case 'Coritiba':
-                               mandante.nome = 6;
-                                break;
-                            case 'Cruzeiro':
-                                mandante.nome = 7;
-                                break;
-                            case 'Sport':
-                                mandante.nome = 8;
-                                break;
-                            case 'Fluminense':
-                                mandante.nome = 9;
-                                break;
-                            case 'Grêmio':
-                                mandante.nome = 10;
-                                break;
-                            case 'Chapecoense':
-                                mandante.nome = 11;
-                                break;
-                            case 'Palmeiras':
                                 mandante.nome = 12;
                                 break;
+                            case 'Botafogo':
+                                mandante.nome = 52;
+                                break;
+                            case 'Corinthians':
+                                mandante.nome = 72;
+                                break;
+                            case 'Coritiba':
+                               mandante.nome = 82;
+                                break;
+                            case 'Cruzeiro':
+                                mandante.nome = 92;
+                                break;
+                            case 'Sport':
+                                mandante.nome = 172;
+                                break;
+                            case 'Fluminense':
+                                mandante.nome = 112;
+                                break;
+                            case 'Grêmio':
+                                mandante.nome = 122;
+                                break;
+                            case 'Chapecoense':
+                                mandante.nome = 62;
+                                break;
+                            case 'Palmeiras':
+                                mandante.nome = 132;
+                                break;
                             case 'Ponte Preta':
-                                mandante.nome = 13;
+                                mandante.nome = 142;
                                 break;
                             case 'Vitória':
-                                mandante.nome = 14;
+                                mandante.nome = 192;
                                 break;
                             case 'Santos':
-                                mandante.nome = 15;
+                                mandante.nome = 152;
                                 break;
                             case 'São Paulo':
-                                mandante.nome = 16;
+                                mandante.nome = 162;
                                 break;
                             case 'Atlético-GO':
-                                mandante.nome = 17;
+                                mandante.nome = 2;
                                 break;
                             case 'Avaí':
-                                mandante.nome = 18;
+                                mandante.nome = 32;
                                 break;
                             case 'Bahia':
-                                mandante.nome = 19;
+                                mandante.nome = 42;
                                 break;
                             case 'Vasco':
-                                mandante.nome = 20;
+                                mandante.nome = 182;
                                 break;
                         }
 
                         switch (visitante.nome) {
                             case 'Flamengo':
-                                visitante.nome = 1;
+                                visitante.nome = 102;
                                 break;
                             case 'Atlético-PR':
-                                visitante.nome = 2;
+                                visitante.nome = 22;
                                 break;
                             case 'Atlético-MG':
-                                visitante.nome = 3;
-                                break;
-                            case 'Botafogo':
-                                visitante.nome = 4;
-                                break;
-                            case 'Corinthians':
-                                visitante.nome = 5;
-                                break;
-                            case 'Coritiba':
-                                visitante.nome = 6;
-                                break;
-                            case 'Cruzeiro':
-                                visitante.nome = 7;
-                                break;
-                            case 'Sport':
-                                visitante.nome = 8;
-                                break;
-                            case 'Fluminense':
-                                visitante.nome = 9;
-                                break;
-                            case 'Grêmio':
-                                visitante.nome = 10;
-                                break;
-                            case 'Chapecoense':
-                                visitante.nome = 11;
-                                break;
-                            case 'Palmeiras':
                                 visitante.nome = 12;
                                 break;
+                            case 'Botafogo':
+                                visitante.nome = 52;
+                                break;
+                            case 'Corinthians':
+                                visitante.nome = 72;
+                                break;
+                            case 'Coritiba':
+                                visitante.nome = 82;
+                                break;
+                            case 'Cruzeiro':
+                                visitante.nome = 92;
+                                break;
+                            case 'Sport':
+                                visitante.nome = 172;
+                                break;
+                            case 'Fluminense':
+                                visitante.nome = 112;
+                                break;
+                            case 'Grêmio':
+                                visitante.nome = 122;
+                                break;
+                            case 'Chapecoense':
+                                visitante.nome = 62;
+                                break;
+                            case 'Palmeiras':
+                                visitante.nome = 132;
+                                break;
                             case 'Ponte Preta':
-                                visitante.nome = 13;
+                                visitante.nome = 142;
                                 break;
                             case 'Vitória':
-                                visitante.nome = 14;
+                                visitante.nome = 192;
                                 break;
                             case 'Santos':
-                                visitante.nome = 15;
+                                visitante.nome = 152;
                                 break;
                             case 'São Paulo':
-                                visitante.nome = 16;
+                                visitante.nome = 162;
                                 break;
                             case 'Atlético-GO':
-                                visitante.nome = 17;
+                                visitante.nome = 2;
                                 break;
                             case 'Avaí':
-                                visitante.nome = 18;
+                                visitante.nome = 32;
                                 break;
                             case 'Bahia':
-                                visitante.nome = 19;
+                                visitante.nome = 42;
                                 break;
                             case 'Vasco':
-                                visitante.nome = 20;
+                                visitante.nome = 182;
                                 break;
                         }
 
                         fs.appendFile('query.txt',
-                            "(1, "+page+", '"+datajogo+"', "+mandante.nome+", "+mandante.placar+", "+visitante.placar+", "+visitante.nome+", '"+created_at+"', '"+created_at+"'), \n"
+                            "(2, "+page+", '"+datajogo+"', "+mandante.nome+", "+mandante.placar+", "+visitante.placar+", "+visitante.nome+", '"+created_at+"', '"+created_at+"'), \n"
                         );
                     });
                 }
