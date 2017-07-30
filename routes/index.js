@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
 
     (function loop() {
         if (page <= last_page) {
-            request.get('http://globoesporte.globo.com/servico/esportes_campeonato/responsivo/widget-uuid/1fa965ca-e21b-4bca-ac5c-bbc9741f2c3d/fases/fase-unica-seriea-2017/rodada/'+page+'/jogos.html',
+            request.get('http://globoesporte.globo.com/servico/esportes_campeonato/responsivo/widget-uuid/' +
+                '1fa965ca-e21b-4bca-ac5c-bbc9741f2c3d/fases/fase-unica-seriea-2017/rodada/'+page+'/jogos.html',
                 function (err, response, body) {
                 if(!err && response.statusCode == 200){
                     var $ = cheerio.load(body);
