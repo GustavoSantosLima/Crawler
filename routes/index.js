@@ -8,7 +8,7 @@ var fs = require('fs');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var page = 1;
-    var last_page = 38;
+    var last_page = 25;
 
     (function loop() {
         if (page <= last_page) {
@@ -175,8 +175,12 @@ router.get('/', function(req, res, next) {
                                 break;
                         }
 
-                        fs.appendFile('query.txt',
-                            "(2, "+page+", '"+datajogo+"', "+mandante.nome+", "+mandante.placar+", "+visitante.placar+", "+visitante.nome+", '"+created_at+"', '"+created_at+"'), \n"
+                        // fs.appendFile('insert.txt',
+                        //     "(2, "+page+", '"+datajogo+"', "+mandante.nome+", "+mandante.placar+", "+visitante.placar+", "+visitante.nome+", '"+created_at+"', '"+created_at+"'), \n"
+                        // );
+
+                        fs.appendFile('update.txt',
+                            "UPDATE `jogos` SET `inicio` = '"+datajogo+"' WHERE `rodada` = "+page+" AND `timecasa_id` = "+mandante.nome+" AND `timefora_id` = "+visitante.nome+"; \n"
                         );
                     });
                 }
